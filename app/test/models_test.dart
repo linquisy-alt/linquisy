@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:linkquisy/models/models.dart';
+import 'package:linquisy/models/models.dart';
 
 void main() {
   test('PaperResult reads what the Librarian bot writes', () {

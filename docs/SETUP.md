@@ -13,7 +13,7 @@ Android emulator. Roughly an hour the first time.
 
 ## 2. Create the Firebase project
 
-1. Go to https://console.firebase.google.com, **Add project**, name it (e.g. `linkquisy-app`). Analytics is optional.
+1. Go to https://console.firebase.google.com, **Add project**, name it (e.g. `linquisy-app`). Analytics is optional.
 2. **Upgrade to the Blaze (pay-as-you-go) plan.** Cloud Functions can only call outside APIs on Blaze. The free
    allowance (2M function calls, 50K Firestore reads per day) covers a small app; set a budget alert of a few
    dollars under *Usage and billing* so there are no surprises.
@@ -23,9 +23,9 @@ Android emulator. Roughly an hour the first time.
 
 ## 3. Pick your package name
 
-Your Play Store package name is permanent. The code uses `com.linkquisy.app`. Keep it if nobody else on Play has it, or choose your own (e.g. `com.yourname.linkquisy`) and replace
-`com.linkquisy.app` in `app/android/app/build.gradle.kts` (`applicationId` and `namespace`) and move
-`app/android/app/src/main/kotlin/com/linkquisy/app/MainActivity.kt` to match the new package path.
+Your Play Store package name is permanent. The code uses `com.linquisy.app`. Keep it if nobody else on Play has it, or choose your own (e.g. `com.yourname.linquisy`) and replace
+`com.linquisy.app` in `app/android/app/build.gradle.kts` (`applicationId` and `namespace`) and move
+`app/android/app/src/main/kotlin/com/linquisy/app/MainActivity.kt` to match the new package path.
 For iOS, set the same bundle ID in Xcode later.
 
 ## 4. Connect the app to Firebase

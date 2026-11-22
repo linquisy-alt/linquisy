@@ -1,4 +1,4 @@
-# linkquisy
+# linquisy
 
 A new Flutter project.
 
