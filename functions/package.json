@@ -1,0 +1,17 @@
+{
+  "name": "inkwell-functions",
+  "private": true,
+  "description": "Cloud Functions for Inkwell: the Librarian open-access lookup bot",
+  "main": "index.js",
+  "engines": { "node": "22" },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "try": "node cli.js",
+    "serve": "firebase emulators:start --only functions,firestore",
+    "deploy": "firebase deploy --only functions"
+  },
+  "dependencies": {
+    "firebase-admin": "^14.5.1",
+    "firebase-functions": "^7.4.0"
+  }
+}

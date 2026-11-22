@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  bot:
+    name: Librarian bot tests
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: functions } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm install
+      - run: npm test
+
+  app:
+    name: Flutter app
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: app } }
+    env:
+      GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 17 }
+      - uses: subosito/flutter-action@v2
+        with: { channel: stable }
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
+      # The APK build needs your Firebase config. Add it as the repo secret GOOGLE_SERVICES_JSON
+      # (paste the whole google-services.json file) and this step produces an installable APK.
+      - name: Build test APK
+        if: env.GOOGLE_SERVICES_JSON != ''
+        run: |
+          printf '%s' "$GOOGLE_SERVICES_JSON" > android/app/google-services.json
+          flutter build apk --release
+      - uses: actions/upload-artifact@v4
+        if: env.GOOGLE_SERVICES_JSON != ''
+        with:
+          name: inkwell-apk
+          path: app/build/app/outputs/flutter-apk/app-release.apk
