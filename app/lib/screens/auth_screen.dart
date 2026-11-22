@@ -64,9 +64,9 @@ class _AuthScreenState extends State<AuthScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Icon(Icons.auto_stories, size: 72, color: InkTheme.paper),
+                  const Icon(Icons.auto_stories, size: 72, color: PagoraTheme.paper),
                   const SizedBox(height: 12),
-                  Text('Inkwell', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineMedium),
+                  Text('Pagora', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineMedium),
                   const SizedBox(height: 4),
                   const Text('Chat, and get open-access papers and books right in the conversation.',
                       textAlign: TextAlign.center),

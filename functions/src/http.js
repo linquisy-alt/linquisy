@@ -4,7 +4,7 @@ const DEFAULT_TIMEOUT_MS = 8000;
 
 function userAgent() {
   const contact = process.env.CONTACT_EMAIL || 'unset@example.org';
-  return `InkwellLibrarian/0.1 (open-access lookup bot; mailto:${contact})`;
+  return `PagoraLibrarian/0.1 (open-access lookup bot; mailto:${contact})`;
 }
 
 /** fetch with a timeout and a polite User-Agent. Returns null on any failure. */

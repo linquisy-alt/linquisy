@@ -1,4 +1,4 @@
-# Inkwell
+# Pagora
 
 A messenger for Android (and later iOS) with a built-in **Librarian** bot. In any one-to-one chat or group,
 when someone mentions a paper or book (a title, DOI, arXiv ID, PubMed/PMC ID or ISBN), the Librarian searches

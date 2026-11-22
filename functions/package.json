@@ -1,7 +1,7 @@
 {
-  "name": "inkwell-functions",
+  "name": "pagora-functions",
   "private": true,
-  "description": "Cloud Functions for Inkwell: the Librarian open-access lookup bot",
+  "description": "Cloud Functions for Pagora: the Librarian open-access lookup bot",
   "main": "index.js",
   "engines": { "node": "22" },
   "scripts": {

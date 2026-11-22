@@ -15,7 +15,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = "org.inkwell.inkwell"
+    namespace = "com.pagora.app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -26,7 +26,7 @@ android {
 
     defaultConfig {
         // Your permanent Play Store package name. Change it before the first upload; it can never change after.
-        applicationId = "org.inkwell.inkwell"
+        applicationId = "com.pagora.app"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = maxOf(flutter.minSdkVersion, 23) // Firebase needs Android 6.0+
