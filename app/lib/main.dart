@@ -10,16 +10,16 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Reads android/app/google-services.json and ios/Runner/GoogleService-Info.plist.
   await Firebase.initializeApp();
-  runApp(const LinkquisyApp());
+  runApp(const LinkQuisyApp());
 }
 
-class LinkquisyApp extends StatelessWidget {
-  const LinkquisyApp({super.key});
+class LinkQuisyApp extends StatelessWidget {
+  const LinkQuisyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Linkquisy',
+      title: 'LinkQuisy',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),

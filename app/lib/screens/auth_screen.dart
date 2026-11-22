@@ -66,7 +66,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 children: [
                   const Icon(Icons.auto_stories, size: 72, color: AppTheme.paper),
                   const SizedBox(height: 12),
-                  Text('Linkquisy', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineMedium),
+                  Text('LinkQuisy', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineMedium),
                   const SizedBox(height: 4),
                   const Text('Chat, and get open-access papers and books right in the conversation.',
                       textAlign: TextAlign.center),

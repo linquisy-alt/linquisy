@@ -47,7 +47,7 @@ The file to upload is `app/build/app/outputs/bundle/release/app-release.aab`.
 
 ## 3. Play Console
 
-1. **Create app**: name *Linkquisy* (or your own name; check it isn't taken or trademarked), app, free.
+1. **Create app**: name *LinkQuisy* (or your own name; check it isn't taken or trademarked), app, free.
 2. **Testing > Closed testing**: create a track, upload the `.aab`, add testers' emails, roll out.
 3. **App content**, fill in all of these:
    - *Privacy policy*: your public URL (template in [PRIVACY_POLICY.md](PRIVACY_POLICY.md)).

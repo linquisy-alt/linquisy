@@ -1,7 +1,7 @@
 {
   "name": "linkquisy-functions",
   "private": true,
-  "description": "Cloud Functions for Linkquisy: the Librarian open-access lookup bot",
+  "description": "Cloud Functions for LinkQuisy: the Librarian open-access lookup bot",
   "main": "index.js",
   "engines": { "node": "22" },
   "scripts": {
