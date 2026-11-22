@@ -13,7 +13,7 @@ Android emulator. Roughly an hour the first time.
 
 ## 2. Create the Firebase project
 
-1. Go to https://console.firebase.google.com, **Add project**, name it (e.g. `pagora-app`). Analytics is optional.
+1. Go to https://console.firebase.google.com, **Add project**, name it (e.g. `inkwell-app`). Analytics is optional.
 2. **Upgrade to the Blaze (pay-as-you-go) plan.** Cloud Functions can only call outside APIs on Blaze. The free
    allowance (2M function calls, 50K Firestore reads per day) covers a small app; set a budget alert of a few
    dollars under *Usage and billing* so there are no surprises.
@@ -23,9 +23,9 @@ Android emulator. Roughly an hour the first time.
 
 ## 3. Pick your package name
 
-Your Play Store package name is permanent. The code uses `com.pagora.app`. Keep it if nobody else on Play has it, or choose your own (e.g. `com.yourname.pagora`) and replace
-`com.pagora.app` in `app/android/app/build.gradle.kts` (`applicationId` and `namespace`) and move
-`app/android/app/src/main/kotlin/com/pagora/app/MainActivity.kt` to match the new package path.
+Your Play Store package name is permanent. The code uses `com.inkwell.app`. Keep it if nobody else on Play has it, or choose your own (e.g. `com.yourname.inkwell`) and replace
+`com.inkwell.app` in `app/android/app/build.gradle.kts` (`applicationId` and `namespace`) and move
+`app/android/app/src/main/kotlin/com/inkwell/app/MainActivity.kt` to match the new package path.
 For iOS, set the same bundle ID in Xcode later.
 
 ## 4. Connect the app to Firebase

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pagora/models/models.dart';
+import 'package:inkwell/models/models.dart';
 
 void main() {
   test('PaperResult reads what the Librarian bot writes', () {

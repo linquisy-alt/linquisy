@@ -1,4 +1,4 @@
-package com.pagora.app
+package com.inkwell.app
 
 import io.flutter.embedding.android.FlutterActivity
 

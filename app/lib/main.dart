@@ -10,19 +10,19 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Reads android/app/google-services.json and ios/Runner/GoogleService-Info.plist.
   await Firebase.initializeApp();
-  runApp(const PagoraApp());
+  runApp(const InkwellApp());
 }
 
-class PagoraApp extends StatelessWidget {
-  const PagoraApp({super.key});
+class InkwellApp extends StatelessWidget {
+  const InkwellApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Pagora',
+      title: 'Inkwell',
       debugShowCheckedModeBanner: false,
-      theme: PagoraTheme.light(),
-      darkTheme: PagoraTheme.dark(),
+      theme: InkTheme.light(),
+      darkTheme: InkTheme.dark(),
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.userChanges(),
         builder: (context, snap) {

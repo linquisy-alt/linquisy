@@ -24,7 +24,7 @@ class ChatListScreen extends StatelessWidget {
     final service = ChatService();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pagora'),
+        title: const Text('Inkwell'),
         actions: [
           PopupMenuButton<String>(
             onSelected: (v) async {

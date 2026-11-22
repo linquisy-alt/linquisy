@@ -32,7 +32,7 @@ class _NewChatScreenState extends State<NewChatScreen> {
     try {
       final user = await _service.findUserByEmail(email);
       if (user == null) {
-        setState(() => _error = 'No Pagora account uses $email yet. Ask them to sign up first.');
+        setState(() => _error = 'No Inkwell account uses $email yet. Ask them to sign up first.');
       } else if (user.uid == _service.myUid) {
         setState(() => _error = "That's you.");
       } else if (_group) {

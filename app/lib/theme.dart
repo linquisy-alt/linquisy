@@ -1,7 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 
-/// Pagora's own look: deep ink blue with a warm paper accent.
-class PagoraTheme {
+/// Inkwell's own look: deep ink blue with a warm paper accent.
+class InkTheme {
   static const ink = Color(0xFF1F3A5F);
   static const paper = Color(0xFFE9A23B);
 
