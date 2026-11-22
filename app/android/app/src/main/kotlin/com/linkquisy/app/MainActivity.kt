@@ -1,4 +1,4 @@
-package com.inkwell.app
+package com.linkquisy.app
 
 import io.flutter.embedding.android.FlutterActivity
 

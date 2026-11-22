@@ -1,10 +1,10 @@
-# Inkwell Privacy Policy (template)
+# Linkquisy Privacy Policy (template)
 
 *Fill in the bracketed parts, have it checked if you can, and publish it at a public URL.*
 
 Last updated: [date]
 
-Inkwell ("we") is operated by [your name / organisation], [contact email].
+Linkquisy ("we") is operated by [your name / organisation], [contact email].
 
 **What we collect**
 - Account details: your name and email address.
@@ -23,6 +23,6 @@ nothing that identifies you, is sent. You can turn the bot off for any chat.
 **Deleting your data.** In the app [Settings > Delete account], or email [contact email]. We delete your account
 and profile within 30 days. Messages you sent in groups may stay visible to the other members.
 
-**Children.** Inkwell is not meant for children under 13.
+**Children.** Linkquisy is not meant for children under 13.
 
 **Changes.** We'll update this page and the date above if this policy changes.

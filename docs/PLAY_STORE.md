@@ -16,7 +16,7 @@ publish to everyone. Start recruiting testers early.
 ## 1. Create your upload key (once)
 
 ```bash
-keytool -genkey -v -keystore ~/inkwell-upload.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+keytool -genkey -v -keystore ~/linkquisy-upload.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload
 ```
 
 Create `app/android/key.properties` (git-ignored):
@@ -25,7 +25,7 @@ Create `app/android/key.properties` (git-ignored):
 storePassword=<the password you chose>
 keyPassword=<the password you chose>
 keyAlias=upload
-storeFile=/full/path/to/inkwell-upload.jks
+storeFile=/full/path/to/linkquisy-upload.jks
 ```
 
 Back up the `.jks` file and passwords somewhere safe. With Play App Signing (the default), Google holds the real
@@ -47,7 +47,7 @@ The file to upload is `app/build/app/outputs/bundle/release/app-release.aab`.
 
 ## 3. Play Console
 
-1. **Create app**: name *Inkwell* (or your own name; check it isn't taken or trademarked), app, free.
+1. **Create app**: name *Linkquisy* (or your own name; check it isn't taken or trademarked), app, free.
 2. **Testing > Closed testing**: create a track, upload the `.aab`, add testers' emails, roll out.
 3. **App content**, fill in all of these:
    - *Privacy policy*: your public URL (template in [PRIVACY_POLICY.md](PRIVACY_POLICY.md)).

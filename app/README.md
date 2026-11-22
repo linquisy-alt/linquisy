@@ -1,4 +1,4 @@
-# inkwell
+# linkquisy
 
 A new Flutter project.
 

@@ -42,5 +42,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: env.GOOGLE_SERVICES_JSON != ''
         with:
-          name: inkwell-apk
+          name: linkquisy-apk
           path: app/build/app/outputs/flutter-apk/app-release.apk
