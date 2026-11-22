@@ -1,0 +1,7 @@
+{
+  "name": "linquisy-rules-test",
+  "private": true,
+  "description": "Security rules tests. Run: npm test (starts the Firestore emulator; needs Java 11+).",
+  "scripts": { "test": "firebase emulators:exec --only firestore --project demo-linquisy --config ../firebase.json \"node --test rules.test.js\"" },
+  "devDependencies": { "@firebase/rules-unit-testing": "^6.0.0", "firebase": "^13.4.0", "firebase-tools": "^15.37.0" }
+}

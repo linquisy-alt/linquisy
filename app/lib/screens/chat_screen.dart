@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:intl/intl.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -5,6 +6,7 @@ import '../models/models.dart';
 import '../services/chat_service.dart';
 import '../widgets/avatar.dart';
 import '../widgets/paper_card.dart';
+import '../widgets/report_sheet.dart';
 import 'chat_info_screen.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -26,6 +28,9 @@ class _ChatScreenState extends State<ChatScreen> {
     _input.clear();
     try {
       await _service.sendText(widget.chatId, text);
+    } on FirebaseException catch (e) {
+      final msg = e.code == 'permission-denied' ? "Not sent. This person isn't accepting your messages." : 'Not sent: ${e.message}';
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
     } catch (e) {
       if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Not sent: $e')));
     }
@@ -69,29 +74,56 @@ class _ChatScreenState extends State<ChatScreen> {
               ]),
             ),
           ),
-          body: Column(children: [
+          body: StreamBuilder<Set<String>>(
+            stream: _service.blocked(),
+            builder: (context, blockedSnap) {
+              final blocked = blockedSnap.data ?? const <String>{};
+              final other = chat == null || chat.isGroup
+                  ? null
+                  : chat.members.firstWhere((m) => m != _service.myUid, orElse: () => '');
+              final iBlockedThem = other != null && blocked.contains(other);
+              return Column(children: [
             Expanded(
               child: StreamBuilder<List<Message>>(
                 stream: _service.messages(widget.chatId),
                 builder: (context, snap) {
                   if (snap.hasError) return Center(child: Text('${snap.error}'));
                   if (!snap.hasData) return const Center(child: CircularProgressIndicator());
-                  final msgs = snap.data!;
+                  // Hide messages from people you blocked.
+                  final msgs = snap.data!.where((m) => m.isSystem || !blocked.contains(m.senderId)).toList();
                   if (msgs.isEmpty) return const _EmptyHint();
                   return ListView.builder(
                     reverse: true,
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                     itemCount: msgs.length,
-                    itemBuilder: (context, i) => _Bubble(
-                      message: msgs[i],
-                      mine: msgs[i].senderId == _service.myUid,
-                      showName: (chat?.isGroup ?? false) &&
-                          (i == msgs.length - 1 || msgs[i + 1].senderId != msgs[i].senderId),
-                    ),
+                    itemBuilder: (context, i) {
+                      final m = msgs[i];
+                      final mine = m.senderId == _service.myUid;
+                      return GestureDetector(
+                        onLongPress: mine || m.isSystem || m.isBot
+                            ? null
+                            : () => showMessageActions(context, chatId: widget.chatId, message: m),
+                        child: _Bubble(
+                          message: m,
+                          mine: mine,
+                          showName: (chat?.isGroup ?? false) &&
+                              (i == msgs.length - 1 || msgs[i + 1].senderId != m.senderId),
+                        ),
+                      );
+                    },
                   );
                 },
               ),
             ),
+            if (iBlockedThem)
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Row(children: [
+                  const Expanded(child: Text("You blocked this person. They can't message you.")),
+                  TextButton(onPressed: () => _service.unblock(other), child: const Text('Unblock')),
+                ]),
+              )
+            else
             SafeArea(
               top: false,
               child: Padding(
@@ -118,7 +150,9 @@ class _ChatScreenState extends State<ChatScreen> {
                 ]),
               ),
             ),
-          ]),
+          ]);
+            },
+          ),
         );
       },
     );

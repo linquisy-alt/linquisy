@@ -20,7 +20,13 @@ nothing that identifies you, is sent. You can turn the bot off for any chat.
 
 **Where it is stored.** On Google Firebase servers in [region]. Data is encrypted in transit.
 
-**Deleting your data.** In the app [Settings > Delete account], or email [contact email]. We delete your account
+**Notifications.** If you allow notifications, we store an ID for your device so we can alert you to new
+messages. It is deleted when you sign out or delete your account.
+
+**Reports and blocking.** If you report someone, we store the report, the reported message and who sent it so we
+can review it. Blocking is stored on your profile.
+
+**Deleting your data.** In the app (Settings > Delete account), or see [your deletion page URL], or email [contact email]. We delete your account
 and profile within 30 days. Messages you sent in groups may stay visible to the other members.
 
 **Children.** Linquisy is not meant for children under 13.

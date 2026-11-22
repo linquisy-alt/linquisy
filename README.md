@@ -19,6 +19,10 @@ when someone mentions a paper or book (a title, DOI, arXiv ID, PubMed/PMC ID or 
     quotes or requests like *"pdf of Attention Is All You Need"* or *"Harrison principles of internal medicine pdf please"*.
   - **/find only**: answers only messages that start with `/find` (or `@librarian`).
   - **Off**.
+- Push notifications for new messages (tap one to open the chat).
+- Report and block: long-press a message, or use chat info. Blocked people can't message you directly, their
+  group messages are hidden, and they don't trigger notifications.
+- Settings: change your name, sign out, delete your account (removes you from chats, deletes your profile).
 - Bot results show as cards with **Open PDF**, **EPUB** (books) and **Source page** buttons.
 - If a paper exists but has no legal free copy, the bot says so and suggests the library / author / interlibrary loan.
 
@@ -42,6 +46,7 @@ functions/          Cloud Function `librarianBot` + the lookup library
   src/sources/      one file per open-access source
   cli.js            try the bot from your terminal, no Firebase needed
 firestore.rules     who can read and write what
+rules-test/         emulator tests for the rules
 docs/               setup, Play Store and iOS guides, privacy policy template
 ```
 
@@ -60,5 +65,5 @@ npm test
 2. [docs/PLAY_STORE.md](docs/PLAY_STORE.md): signing, store listing, and publishing on Google Play.
 3. [docs/IOS.md](docs/IOS.md): the App Store, later.
 
-Ideas after the MVP: push notifications (Firebase Cloud Messaging), phone-number sign-in, read receipts,
-photos and file sharing, message search, and an in-app PDF viewer.
+Ideas after the MVP: phone-number sign-in, read receipts, photos and file sharing, message search, and an
+in-app PDF viewer.
