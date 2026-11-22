@@ -7,6 +7,9 @@ The Flutter code already runs on iOS; nothing in `lib/` is Android-only. What yo
 3. `flutterfire configure` with the `ios` platform, which writes `ios/Runner/GoogleService-Info.plist`.
 4. In `app/ios/Podfile`, set `platform :ios, '15.0'` (Firebase's minimum), then `cd ios && pod install`.
 5. In Xcode: set the bundle ID and your team under *Signing & Capabilities*.
-6. `flutter build ipa`, then upload with Xcode or Transporter and test through TestFlight.
-7. App Store review asks for the same things as Play: privacy policy, report/block for user content,
+6. Notifications: in Xcode add the *Push Notifications* and *Background Modes > Remote notifications*
+   capabilities, create an APNs key in your Apple Developer account, and upload it in Firebase console >
+   Project settings > Cloud Messaging.
+7. `flutter build ipa`, then upload with Xcode or Transporter and test through TestFlight.
+8. App Store review asks for the same things as Play: privacy policy, report/block for user content,
    in-app account deletion, and a demo login.

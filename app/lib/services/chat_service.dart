@@ -1,7 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/models.dart';
+
+/// Must match FUNCTION_REGION in functions/.env.
+const String functionsRegion = 'asia-south1';
 
 /// All reads and writes to Firestore go through here.
 class ChatService {
@@ -118,6 +122,42 @@ class ChatService {
       'updatedAt': FieldValue.serverTimestamp(),
     });
     await batch.commit();
+  }
+
+  /// The people you have blocked. Their messages are hidden and they can't message you directly.
+  Stream<Set<String>> blocked() => _users
+      .doc(myUid)
+      .snapshots()
+      .map((s) => Set<String>.from(s.data()?['blocked'] as List? ?? const []));
+
+  Future<void> block(String uid) =>
+      _users.doc(myUid).set({'blocked': FieldValue.arrayUnion([uid])}, SetOptions(merge: true));
+
+  Future<void> unblock(String uid) =>
+      _users.doc(myUid).set({'blocked': FieldValue.arrayRemove([uid])}, SetOptions(merge: true));
+
+  /// Files a report for the moderators (you) to review in the Firebase console.
+  Future<void> report({
+    required String chatId,
+    required String reportedUid,
+    required String reason,
+    Message? message,
+  }) =>
+      _db.collection('reports').add({
+        'reporterId': myUid,
+        'reportedUid': reportedUid,
+        'chatId': chatId,
+        'messageId': message?.id,
+        'messageText': message?.text,
+        'reason': reason,
+        'createdAt': FieldValue.serverTimestamp(),
+        'status': 'open',
+      });
+
+  /// Deletes the account on the server, then signs out locally.
+  Future<void> deleteAccount() async {
+    await FirebaseFunctions.instanceFor(region: functionsRegion).httpsCallable('deleteMyAccount').call();
+    await _auth.signOut();
   }
 
   Future<void> _system(String chatId, String text) => _chats.doc(chatId).collection('messages').add({

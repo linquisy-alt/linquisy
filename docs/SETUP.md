@@ -74,7 +74,8 @@ flutter run
 ```
 
 Create two accounts (two phones, or sign out and in again), start a chat, and send
-`pdf of Attention Is All You Need`. The Librarian should answer within a few seconds.
+`pdf of Attention Is All You Need`. The Librarian should answer within a few seconds, and the other phone
+gets a notification. Notifications use Firebase Cloud Messaging, which is on by default for Android; nothing to set up.
 
 **If the bot doesn't answer:** Firebase console > Functions > `librarianBot` > Logs. The most common causes are the
 project not being on Blaze, `CONTACT_EMAIL` missing, or the chat's bot mode being set to Off.
@@ -83,4 +84,5 @@ project not being on Blaze, `CONTACT_EMAIL` missing, or the chat's bot mode bein
 
 ```bash
 firebase emulators:start        # Auth, Firestore and Functions on your computer
+cd rules-test && npm install && npm test   # checks the security rules (needs Java 11+)
 ```

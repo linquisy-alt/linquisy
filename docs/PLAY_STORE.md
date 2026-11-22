@@ -57,24 +57,23 @@ The file to upload is `app/build/app/outputs/bundle/release/app-release.aab`.
    - *Target audience*: 18+ (or 13+; under-13 brings extra rules).
    - *Data safety*: collected = name, email, messages (app functionality), user IDs; encrypted in transit; users
      can ask for deletion. Shared with no one for advertising.
-   - *User-generated content*: Play requires apps with chat to let users **report and block** others and to have
-     terms that ban abusive content. This MVP doesn't have report/block yet; add it before the production release
-     (see below).
+   - *User-generated content*: Play requires chat apps to let users **report and block** others. Linquisy has
+     both (long-press a message, or open chat info). Reports land in the Firestore `reports` collection; check it
+     in the Firebase console regularly and act on them. Add a line to your terms that abusive content is banned.
+   - *Account deletion*: Play asks for an in-app option (Settings > Delete account) **and** a web link. Publish
+     [delete-account.md](delete-account.md) (for example with GitHub Pages) and give that URL.
 4. **Store listing**: short and full description, at least 2 phone screenshots, a 512×512 icon and a 1024×500
    feature graphic. Make your own artwork; don't use other messengers' logos or colours.
 5. After the 14-day closed test, **Production > Create release**, upload, and submit for review.
 
 ## Before the production release
 
-- Report and block users (Play UGC policy).
-- Account deletion inside the app and on a web page (Play requires both for apps with accounts).
-- Push notifications (Firebase Cloud Messaging) so people see new messages.
-- Your own icon, name check, and a short terms of use.
-
-I can build any of these next.
+- Your own launcher icon and store artwork.
+- A short terms of use that bans abuse, and someone (you) checking the `reports` collection.
+- Turn on [Firebase App Check](https://firebase.google.com/docs/app-check) to stop scripts from abusing your backend.
 
 ## CI build
 
-`.github/workflows/ci.yml` runs the bot tests, `flutter analyze` and `flutter test` on every push. If you add a
+`.github/workflows/ci.yml` runs the bot tests, the security rules tests, `flutter analyze` and `flutter test` on every push. If you add a
 repository secret named `GOOGLE_SERVICES_JSON` containing your whole `google-services.json`, it also builds an
 installable APK you can download from the run's *Artifacts*.

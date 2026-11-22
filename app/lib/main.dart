@@ -4,12 +4,16 @@ import 'package:material_ui/material_ui.dart';
 
 import 'screens/auth_screen.dart';
 import 'screens/chat_list_screen.dart';
+import 'services/push_service.dart';
 import 'theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Reads android/app/google-services.json and ios/Runner/GoogleService-Info.plist.
   await Firebase.initializeApp();
+  FirebaseAuth.instance.authStateChanges().listen((user) {
+    if (user != null) PushService.start();
+  });
   runApp(const LinquisyApp());
 }
 
@@ -20,6 +24,7 @@ class LinquisyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Linquisy',
+      navigatorKey: PushService.navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),

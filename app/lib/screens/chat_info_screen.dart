@@ -3,6 +3,7 @@ import 'package:material_ui/material_ui.dart';
 import '../models/models.dart';
 import '../services/chat_service.dart';
 import '../widgets/avatar.dart';
+import '../widgets/report_sheet.dart';
 
 class ChatInfoScreen extends StatelessWidget {
   const ChatInfoScreen({super.key, required this.chatId});
@@ -82,6 +83,7 @@ class ChatInfoScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 12),
               ),
             ),
+            if (!chat.isGroup) ..._directActions(context, service, chat),
             if (chat.isGroup) ...[
               const Divider(height: 32),
               ListTile(
@@ -96,6 +98,17 @@ class ChatInfoScreen extends StatelessWidget {
                 ListTile(
                   leading: Avatar(name: chat.memberNames[uid] ?? '?'),
                   title: Text(uid == service.myUid ? 'You' : (chat.memberNames[uid] ?? 'Member')),
+                  trailing: uid == service.myUid
+                      ? null
+                      : PopupMenuButton<String>(
+                          onSelected: (v) => v == 'report'
+                              ? reportFlow(context, chatId: chatId, uid: uid)
+                              : blockFlow(context, uid: uid, name: chat.memberNames[uid] ?? 'this person'),
+                          itemBuilder: (_) => const [
+                            PopupMenuItem(value: 'report', child: Text('Report')),
+                            PopupMenuItem(value: 'block', child: Text('Block')),
+                          ],
+                        ),
                 ),
               ListTile(
                 leading: Icon(Icons.logout, color: Theme.of(context).colorScheme.error),
@@ -110,5 +123,31 @@ class ChatInfoScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  List<Widget> _directActions(BuildContext context, ChatService service, Chat chat) {
+    final other = chat.members.firstWhere((m) => m != service.myUid, orElse: () => '');
+    if (other.isEmpty) return const [];
+    final name = chat.memberNames[other] ?? 'this person';
+    final error = Theme.of(context).colorScheme.error;
+    return [
+      const Divider(height: 32),
+      StreamBuilder<Set<String>>(
+        stream: service.blocked(),
+        builder: (context, snap) {
+          final isBlocked = snap.data?.contains(other) ?? false;
+          return ListTile(
+            leading: Icon(Icons.block, color: error),
+            title: Text(isBlocked ? 'Unblock $name' : 'Block $name', style: TextStyle(color: error)),
+            onTap: () => isBlocked ? service.unblock(other) : blockFlow(context, uid: other, name: name),
+          );
+        },
+      ),
+      ListTile(
+        leading: Icon(Icons.flag, color: error),
+        title: Text('Report $name', style: TextStyle(color: error)),
+        onTap: () => reportFlow(context, chatId: chatId, uid: other),
+      ),
+    ];
   }
 }

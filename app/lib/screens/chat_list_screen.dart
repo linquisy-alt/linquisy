@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -7,6 +6,7 @@ import '../services/chat_service.dart';
 import '../widgets/avatar.dart';
 import 'chat_screen.dart';
 import 'new_chat_screen.dart';
+import 'settings_screen.dart';
 
 class ChatListScreen extends StatelessWidget {
   const ChatListScreen({super.key});
@@ -26,14 +26,10 @@ class ChatListScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Linquisy'),
         actions: [
-          PopupMenuButton<String>(
-            onSelected: (v) async {
-              if (v == 'out') await FirebaseAuth.instance.signOut();
-            },
-            itemBuilder: (_) => [
-              PopupMenuItem(enabled: false, child: Text(service.myName)),
-              const PopupMenuItem(value: 'out', child: Text('Sign out')),
-            ],
+          IconButton(
+            tooltip: 'Settings',
+            icon: const Icon(Icons.settings),
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsScreen())),
           ),
         ],
       ),

@@ -8,7 +8,21 @@ service cloud.firestore {
     match /users/{uid} {
       allow read: if signedIn();
       allow create, update: if signedIn() && uid == me()
-        && request.resource.data.keys().hasOnly(['name', 'email', 'emailLower', 'updatedAt']);
+        && request.resource.data.keys().hasOnly(['name', 'email', 'emailLower', 'updatedAt', 'blocked'])
+        && (!('blocked' in request.resource.data) || request.resource.data.blocked is list);
+
+      // Push notification tokens for your own devices.
+      match /tokens/{token} {
+        allow read, write: if signedIn() && uid == me();
+      }
+    }
+
+    // Reports of abusive users or messages. Write-only for users; review them in the Firebase console.
+    match /reports/{id} {
+      allow create: if signedIn()
+        && request.resource.data.reporterId == me()
+        && request.resource.data.reason is string
+        && request.resource.data.reason.size() <= 1000;
     }
 
     match /chats/{chatId} {
@@ -27,8 +41,14 @@ service cloud.firestore {
         && (resource.data.type == 'group' || request.resource.data.members == resource.data.members);
 
       match /messages/{messageId} {
-        function chatMember() {
-          return signedIn() && me() in get(/databases/$(database)/documents/chats/$(chatId)).data.members;
+        function chatDoc() { return get(/databases/$(database)/documents/chats/$(chatId)).data; }
+        function chatMember() { return signedIn() && me() in chatDoc().members; }
+        // In a direct chat, you can't message someone who has blocked you.
+        function notBlockedByOther() {
+          let c = chatDoc();
+          let others = c.members.removeAll([me()]);
+          return c.type != 'direct' || others.size() == 0
+            || !(me() in get(/databases/$(database)/documents/users/$(others[0])).data.get('blocked', []));
         }
         allow read: if chatMember();
         // Only the Cloud Function (admin SDK) can write Librarian messages.
@@ -36,7 +56,8 @@ service cloud.firestore {
           && request.resource.data.senderId == me()
           && request.resource.data.type in ['text', 'system']
           && request.resource.data.text is string
-          && request.resource.data.text.size() <= 4000;
+          && request.resource.data.text.size() <= 4000
+          && notBlockedByOther();
       }
 
       match /botUsage/{doc} { allow read, write: if false; }
